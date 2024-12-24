@@ -16,10 +16,8 @@ async def main():
     application = Application.builder().token(config.telegram_token).build()
 
     application.add_handler(CommandHandler("start", bot.start))
-    application.add_handler(CommandHandler("poll", bot.start_poll))  # Добавляем обработчик для команды /poll
     application.add_handler(CallbackQueryHandler(bot.button_handler))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, bot.search_handler))  # Обработка текстовых сообщений
-    application.add_handler(PollAnswerHandler(bot.handle_poll_answer))  # Обработка ответов на опросы
 
     print("Бот готов к работе.")
     await application.run_polling()

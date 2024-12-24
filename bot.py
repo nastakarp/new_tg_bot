@@ -63,22 +63,6 @@ class TelegramBot:
             await context.bot.send_message(chat_id=chat_id, text='Введите ваш запрос для поиска новостей:')
             return
 
-    async def start_poll(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        print(f"Пользователь {update.message.from_user.id} начал опрос.")
-        question = "Какую категорию новостей вы предпочитаете?"
-        options = ["Последние новости", "Спортивные новости", "Новости культуры", "Технологии"]
-
-        await context.bot.send_poll(
-            chat_id=update.effective_chat.id,
-            question=question,
-            options=options,
-            is_anonymous=False,  # Позволяет видеть, кто как голосует
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Завершить опрос", callback_data='end_poll')]])
-        )
-
-    async def handle_poll_answer(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        # Обработка ответов на опрос
-        print(f"Пользователь {update.poll_answer.user.id} проголосовал за: {update.poll_answer.option_ids}")
     async def search_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         query = update.message.text
         print(f"Пользователь {update.message.from_user.id} выполнил поиск: {query}")
